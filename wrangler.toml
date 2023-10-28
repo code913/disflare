@@ -1,0 +1,5 @@
+compatibility_date = "2023-10-28"
+main = "./src/core/index.js"
+name = "disflare"
+
+workers_dev = true
