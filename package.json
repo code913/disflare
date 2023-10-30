@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "env": "cd ./src/core && node env.js",
-    "deploy": "wrangler deploy"
+    "env": "node ./src/core/env.js",
+    "register": "node ./src/core/register.js",
+    "deploy": "echo '\"Make sure you've ran \"npm run register\" before deploying to register your commands' && wrangler deploy"
   },
   "keywords": [],
   "author": "",

@@ -130,5 +130,5 @@ dist
 .pnp.*
 
 .wrangler
-src/core/tmp.env
-.env
+*.env
+src/core/meta.json

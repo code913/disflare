@@ -6,7 +6,7 @@ import { parse } from "toml";
 import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawn } from "node:child_process";
 
-const env = parse(readFileSync("../../.env", "utf-8"));
+const env = parse(readFileSync("./.env", "utf-8")); // Assuming you ran it from root dir with npm run env
 console.dir(env);
 writeFileSync("./tmp.env", JSON.stringify(env));
 
