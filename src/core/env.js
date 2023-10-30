@@ -1,3 +1,7 @@
+/**
+ * Puts your environment variables from the root .env file into wrangler
+ * Wrangler accepts JSON instead of .env files when bulk uploading which is a pain
+ */
 import { parse } from "toml";
 import { readFileSync, writeFileSync, unlinkSync } from "node:fs";
 import { spawn } from "node:child_process";
