@@ -26,7 +26,7 @@ for (let { filename, module: { metadata } } of handlers) {
     meta.commands[metadata.command.name] = {
         ...metadata,
         type: 1, // slash command
-        path: join("handlers", filename)
+        path: `../handlers/${filename}` // relative to index.js file
     };
     discordPayload.push(metadata.command);
 }

@@ -1,26 +1,26 @@
 /**
  * The main worker file
- * Handles 
+ * Handles interactions requests from discord and calls your command/component handlers
  */
-import { verifyKey, InteractionResponseType } from "discord-interactions";
+import { verifyKey, InteractionType, InteractionResponseType } from "discord-interactions";
 import { Router } from "itty-router";
 import { JsonResponse, Interaction } from "./utils.js";
+import meta from "./meta.json" assert { type: "json" };
+console.log(meta);
 
 const router = Router();
-const commands = new Map(); // TODO
 
 router.post("/", async (request, env, cfEvent) => {
 	const message = await request.json?.();
 
-	if (message.type === InteractionType.PING) {
-		return new JsonResponse({
-			type: InteractionResponseType.PONG
-		});
-	}
+	if (message.type === InteractionType.PING) return new JsonResponse({
+		type: InteractionResponseType.PONG
+	});
 	const interaction = new Interaction(message);
 	switch (message.type) {
 		case InteractionType.APPLICATION_COMMAND: {
-			return commands.get(interaction.data.name)?.run(interaction, env, cfEvent);
+			const { path } = meta.commands[interaction.data.name];
+			return await import(path).then(({ command }) => command(interaction));
 		};
 		case InteractionType.MESSAGE_COMPONENT: {
 			// TODO
@@ -35,7 +35,7 @@ export default {
 			const signature = request.headers.get("x-signature-ed25519");
 			const timestamp = request.headers.get("x-signature-timestamp");
 			const body = await request.clone().arrayBuffer();
-			const isValidRequest = botName && signature && timestamp && verifyKey(
+			const isValidRequest = signature && timestamp && verifyKey(
 				body,
 				signature,
 				timestamp,
