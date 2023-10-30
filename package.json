@@ -7,7 +7,7 @@
   "scripts": {
     "env": "node ./src/core/env.js",
     "register": "node ./src/core/register.js",
-    "deploy": "echo '\"Make sure you've ran \"npm run register\" before deploying to register your commands' && wrangler deploy"
+    "deploy": "echo \"Make sure you've ran npm run register before deploying to register your commands\" && wrangler deploy"
   },
   "keywords": [],
   "author": "",
